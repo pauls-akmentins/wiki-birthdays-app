@@ -6,23 +6,31 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 
+import { OnThisDay } from '@/api/types/wikiBirthdayTypes';
 import { Flex } from '@/components/flex/Flex';
 import { classNames } from '@/components/utils/classNames';
 
-import styles from './WikiBirthdaysTable.module.css';
+import { useBirthdaysTable } from '../hooks/useBirthdaysTable';
+import styles from './BirthdaysTable.module.css';
 
-export const WikiBirthdaysTable = () => {
+interface Props {
+  birthdays: OnThisDay[];
+}
+
+export const BirthdaysTable = ({ birthdays }: Props) => {
+  const { tableHeadersData } = useBirthdaysTable({ birthdays });
+
   return (
     <Flex centerHorizontally centerVertically>
       <TableContainer component={Paper} className={classNames([styles['table-container']])}>
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>Dessert (100g serving)</TableCell>
-              <TableCell align="right">Calories</TableCell>
-              <TableCell align="right">Fat&nbsp;(g)</TableCell>
-              <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-              <TableCell align="right">Protein&nbsp;(g)</TableCell>
+              {tableHeadersData.map((header) => (
+                <TableCell align="center" key={header}>
+                  {header}
+                </TableCell>
+              ))}
             </TableRow>
           </TableHead>
           <TableBody></TableBody>

@@ -1,17 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
-import { WikiBirthdays } from '@/containers/sections/WikiBirthdays';
 import { store } from '@/store';
 
 import './index.css';
+
+import { BirthdaysViewer } from './containers/organisms/BirthdayViewer';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <WikiBirthdays />
+      <BirthdaysViewer />
     </Provider>
   </React.StrictMode>,
 );
