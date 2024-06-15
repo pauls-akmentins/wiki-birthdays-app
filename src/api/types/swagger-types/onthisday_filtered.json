@@ -1,0 +1,213 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "version": "1.0.0",
+    "title": "Wikimedia REST API",
+    "description": "This API provides cacheable and straightforward access to Wikimedia content and data, in machine-readable formats.\n### Global Rules\n- Limit your clients to no more than 200 requests/s to this API.\n  Each API endpoint's documentation may detail more specific usage limits.\n- Set a unique `User-Agent` or `Api-User-Agent` header that\n  allows us to contact you quickly. Email addresses or URLs\n  of contact pages work well.\n\nBy using this API, you agree to Wikimedia's [Terms of Use](https://wikimediafoundation.org/wiki/Terms_of_Use) and [Privacy Policy](https://wikimediafoundation.org/wiki/Privacy_policy). Unless otherwise specified in the endpoint documentation below, content accessed via this API is licensed under the [CC-BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/) and [GFDL](https://www.gnu.org/copyleft/fdl.html) licenses, and you irrevocably agree to release modifications or additions made through this API under these licenses. See https://www.mediawiki.org/wiki/REST_API for background and details.\n### Endpoint documentation\nPlease consult each endpoint's documentation for details on:\n- Licensing information for the specific type of content\n  and data served via the endpoint.\n- Stability markers to inform you about development status and\n  change policy, according to\n  [our API version policy](https://www.mediawiki.org/wiki/API_versioning).\n- Endpoint specific usage limits.\n",
+    "termsOfService": "https://wikimediafoundation.org/wiki/Terms_of_Use",
+    "contact": {
+      "name": "the Wikimedia Services team",
+      "url": "http://mediawiki.org/wiki/REST_API"
+    },
+    "license": {
+      "name": "Apache2",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+    }
+  },
+  "servers": [
+    {
+      "url": "/api/rest_v1"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "onthisdayResponse": {
+        "type": "object",
+        "description": "Lists of events which happened on the provided day and month",
+        "properties": {
+          "births": {
+            "$ref": "#/components/schemas/onthisday"
+          },
+          "deaths": {
+            "$ref": "#/components/schemas/onthisday"
+          },
+          "events": {
+            "$ref": "#/components/schemas/onthisday"
+          },
+          "holidays": {
+            "$ref": "#/components/schemas/onthisday"
+          },
+          "selected": {
+            "$ref": "#/components/schemas/onthisday"
+          }
+        }
+      },
+      "onthisday": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "text": {
+              "type": "string",
+              "description": "Short description of the event"
+            },
+            "pages": {
+              "type": "array",
+              "description": "List of pages related to the event",
+              "items": {
+                "$ref": "#/components/schemas/summary"
+              }
+            }
+          }
+        }
+      },
+      "summary": {
+        "type": "object",
+        "properties": {
+          "titles": {
+            "$ref": "#/components/schemas/titles_set"
+          },
+          "title": {
+            "deprecated": true,
+            "type": "string",
+            "description": "The page title.\nDeprecated: Use `titles.normalized` instead.\n"
+          },
+          "displaytitle": {
+            "deprecated": true,
+            "type": "string",
+            "description": "The page title how it should be shown to the user.\nDeprecated: Use `titles.display` instead.\n"
+          },
+          "pageid": {
+            "type": "integer",
+            "description": "The page ID"
+          },
+          "extract": {
+            "type": "string",
+            "description": "First several sentences of an article in plain text"
+          },
+          "extract_html": {
+            "type": "string",
+            "description": "First several sentences of an article in simple HTML format"
+          },
+          "thumbnail": {
+            "$ref": "#/components/schemas/thumbnail"
+          },
+          "originalimage": {
+            "$ref": "#/components/schemas/originalimage"
+          },
+          "lang": {
+            "type": "string",
+            "description": "The page language code",
+            "example": "en"
+          },
+          "dir": {
+            "type": "string",
+            "description": "The page language direction code",
+            "example": "ltr"
+          },
+          "timestamp": {
+            "type": "string",
+            "description": "The time when the page was last edited in the [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format",
+            "example": {}
+          },
+          "description": {
+            "type": "string",
+            "description": "Wikidata description for the page",
+            "example": "American poet"
+          },
+          "coordinates": {
+            "type": "object",
+            "description": "The coordinates of the item",
+            "properties": {
+              "lat": {
+                "type": "number",
+                "description": "The latitude"
+              },
+              "lon": {
+                "type": "number",
+                "description": "The longitude"
+              }
+            },
+            "required": [
+              "lat",
+              "lon"
+            ]
+          }
+        },
+        "required": [
+          "dir",
+          "extract",
+          "lang",
+          "titles"
+        ]
+      },
+      "titles_set": {
+        "type": "object",
+        "properties": {
+          "canonical": {
+            "type": "string",
+            "description": "the DB key (non-prefixed), e.g. may have _ instead of spaces, best for making request URIs, still requires Percent-encoding"
+          },
+          "normalized": {
+            "type": "string",
+            "description": "the normalized title (https://www.mediawiki.org/wiki/API:Query#Example_2:_Title_normalization), e.g. may have spaces instead of _"
+          },
+          "display": {
+            "type": "string",
+            "description": "the title as it should be displayed to the user"
+          }
+        },
+        "required": [
+          "canonical",
+          "normalized",
+          "display"
+        ],
+        "description": "a good example of the differences can be seen in https://en.wikipedia.org/api/rest_v1/page/summary/IOS_13"
+      },
+      "thumbnail": {
+        "type": "object",
+        "properties": {
+          "source": {
+            "type": "string",
+            "description": "Thumbnail image URI"
+          },
+          "width": {
+            "type": "integer",
+            "description": "Thumbnail width"
+          },
+          "height": {
+            "type": "integer",
+            "description": "Thumnail height"
+          }
+        },
+        "required": [
+          "height",
+          "source",
+          "width"
+        ]
+      },
+      "originalimage": {
+        "type": "object",
+        "properties": {
+          "source": {
+            "type": "string",
+            "description": "Original image URI"
+          },
+          "width": {
+            "type": "integer",
+            "description": "Original image width"
+          },
+          "height": {
+            "type": "integer",
+            "description": "Original image height"
+          }
+        },
+        "required": [
+          "height",
+          "source",
+          "width"
+        ]
+      }
+    }
+  }
+}

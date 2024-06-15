@@ -1,10 +1,4 @@
-# Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
-
-In the project directory, you can run:
+### Starting scripts (auto-generated README contents)
 
 ### `npm start`
 
@@ -27,20 +21,22 @@ It correctly bundles React in production mode and optimizes the build for the be
 The build is minified and the filenames include the hashes.\
 Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Auto generated types from https://en.wikipedia.org/api/rest_v1/?spec
 
-### `npm run eject`
+1. Extracted the swagger.json spec file: curl "'https://en.wikipedia.org/api/rest_v1/?spec' > swagger.json"
+2. Filtered the swagger.json file using "jq" config (filter_onthisday.js), so that I get only OnThisDay related types
+3. Converted the swagger.json file into TS file with swagger-typescript-api package: "npx swagger-typescript-api -p onthisday_filtered.json -o swagger-types.ts"
+4. Manually removed all the HttpClient service related methods, because they are redundant for my use case
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Added the "jq" filtering file (filter_onthisday.js) and filtered swagger JSON file (onthisday_filtered.json) in this repo as a proof, otherwise they are not worth to be kept in repo due to bundle size
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Containers folder's structure
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Used `Atomic Design System` to structure the main render folder, with few exceptions like `hooks`, etc. folders,
+that does not follow traditional `Atomic Design System`, as well as introduced `section`, which is alias for
+`templates` folder in original `Atomic Design System` structure (https://atomicdesign.bradfrost.com/chapter-2/)
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### Styling (CSS)
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+Used BEM methodology for structuring CSS class names, but did not want to install extra dependency to "unlock"
+one useful characteristic from BEM - class nesting, which is not available on native CSS. (https://getbem.com/)
