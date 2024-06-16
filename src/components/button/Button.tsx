@@ -6,6 +6,7 @@ interface Props {
   children: React.ReactNode;
   type?: ButtonType;
   variant?: ButtonVariant;
+  disabled?: boolean;
   onClick: () => void;
 }
 
@@ -14,6 +15,7 @@ export const Button = ({
   onClick,
   type = ButtonType.Button,
   variant = ButtonVariant.Primary,
+  disabled = false,
 }: Props) => {
   return (
     <button
@@ -22,6 +24,7 @@ export const Button = ({
       })}
       type={type}
       onClick={onClick}
+      disabled={disabled}
     >
       {children}
     </button>

@@ -5,14 +5,14 @@ import { store } from '@/store';
 
 import './index.css';
 
-import { BirthdaysViewer } from './containers/organisms/BirthdayViewer';
+import { BirthdaysSection } from './containers/sections/BirthdaysSection';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <BirthdaysViewer />
+      <BirthdaysSection />
     </Provider>
   </React.StrictMode>,
 );

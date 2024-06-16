@@ -1,0 +1,36 @@
+.table-container {
+  height: 100vh;
+  position: relative;
+  gap: 12px;
+}
+
+.table-container__table {
+  max-width: 800px;
+  width: 100%;
+}
+
+/**
+* Increase header-cell CSS specificity to override external package styles
+*/
+.table-container .table-container__header-cell {
+  font-weight: 600;
+}
+
+.table-container .table-container__last-cell {
+  width: 10%;
+}
+
+.table-container__header-row {
+  height: 60px;
+}
+
+.table-container__footer-row {
+  height: 50px;
+}
+
+.table-container__loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

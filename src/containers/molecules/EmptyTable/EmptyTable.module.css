@@ -1,0 +1,20 @@
+.overlay-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
+
+.overlay-container__text {
+  font-size: 16px;
+  font-weight: 600;
+  text-align: center;
+  color: #4da238;
+  opacity: 0.5;
+}
+
+.overlay-container__text-error {
+  color: lightcoral;
+  opacity: 0.8;
+}
