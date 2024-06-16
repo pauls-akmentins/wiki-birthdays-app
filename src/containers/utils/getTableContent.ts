@@ -6,7 +6,7 @@ import { OnThisDay } from '@/api/types/wikiBirthdayTypes';
  * key is not always follow same pattern, which makes it inconsistent to split,
  * by using some common delimiters like comma, which can vary from one data to another.
  */
-const TEXT_COLUMN_NAME = 'Name, Known for';
+export const TEXT_COLUMN_NAME = 'Name, Known for';
 
 const getBirthdaysDisplayableData = (birthdays: OnThisDay[]) =>
   birthdays.map(({ text, year }) => ({ [TEXT_COLUMN_NAME]: text, year }));

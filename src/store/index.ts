@@ -1,11 +1,13 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
 
 import birthdaysReducer from './birthdays/birthdaysSlice';
 
+export const rootReducer = combineReducers({
+  birthdays: birthdaysReducer,
+});
+
 export const store = configureStore({
-  reducer: {
-    birthdays: birthdaysReducer,
-  },
+  reducer: rootReducer,
 });
 
 export type RootState = ReturnType<typeof store.getState>;
